@@ -1,11 +1,9 @@
 // src/app/articles/page.tsx
-
 import {
   AllArticlesPage,
 } from "@/components/articles/all-articles-page";
 import ArticleSearchInput from "@/components/articles/article-search-input";
 import { Button } from "@/components/ui/button";
-import React, { Suspense } from "react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { fetchArticleByQuery } from "@/lib/query/fetch-articles";
@@ -22,7 +20,7 @@ function AllArticlesPageSkeleton() {
           className="group relative overflow-hidden transition-all hover:shadow-lg"
         >
           <div className="p-6">
-            <Skeleton className="mb-4 h-48 w-full rounded-xl bg-gradient-to-br from-purple-100/50 to-blue-100/50 dark:from-purple-900/20 dark:to-blue-900/20" />
+            <Skeleton className="mb-4 h-48 w-full rounded-xl" />
             <Skeleton className="h-6 w-3/4 rounded-lg" />
             <Skeleton className="mt-2 h-4 w-1/2 rounded-lg" />
             <div className="mt-6 flex items-center justify-between">
@@ -39,13 +37,15 @@ function AllArticlesPageSkeleton() {
   );
 }
 
+
 export default async function ArticlesPage({
   searchParams,
 }: {
-  searchParams?: { search?: string; page?: string };
+  searchParams: { search?: string; page?: string };
 }) {
-  const searchText = searchParams?.search || "";
-  const currentPage = Number(searchParams?.page) || 1;
+  const searchText = searchParams.search || "";
+  const currentPage = Number(searchParams.page) || 1;
+
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
   const take = ITEMS_PER_PAGE;
 
@@ -67,16 +67,14 @@ export default async function ArticlesPage({
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             All Articles
           </h1>
-          <Suspense>
-            <ArticleSearchInput />
-          </Suspense>
+
+          <ArticleSearchInput />
         </div>
 
-        <Suspense fallback={<AllArticlesPageSkeleton />}>
-          <AllArticlesPage articles={articles} />
-        </Suspense>
+        <AllArticlesPage articles={articles} />
 
         <div className="mt-12 flex justify-center gap-2">
+          {/* Pagination */}
           <Link
             href={`?search=${searchText}&page=${currentPage - 1}`}
             passHref
