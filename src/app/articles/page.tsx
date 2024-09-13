@@ -1,7 +1,5 @@
 // src/app/articles/page.tsx
-import {
-  AllArticlesPage,
-} from "@/components/articles/all-articles-page";
+import { AllArticlesPage } from "@/components/articles/all-articles-page";
 import ArticleSearchInput from "@/components/articles/article-search-input";
 import { Button } from "@/components/ui/button";
 // import { Card } from "@/components/ui/card";
@@ -37,14 +35,15 @@ const ITEMS_PER_PAGE = 3;
 //   );
 // }
 
-
 export default async function ArticlesPage({
   searchParams,
 }: {
-  searchParams: { search?: string; page?: string };
+  searchParams: Promise<{ search?: string; page?: string }>;
 }) {
-  const searchText = searchParams.search || "";
-  const currentPage = Number(searchParams.page) || 1;
+  const sParams = await searchParams;
+  const { search, page } = sParams;
+  const searchText = search || "";
+  const currentPage = Number(page) || 1;
 
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
   const take = ITEMS_PER_PAGE;
@@ -57,7 +56,10 @@ export default async function ArticlesPage({
       <main className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
         <div className="w-full mx-auto">
           <Link href={"/"} className="mt-6 inline-block">
-            <Button variant="outline" className="rounded-full px-8 py-6 text-lg">
+            <Button
+              variant="outline"
+              className="rounded-full px-8 py-6 text-lg"
+            >
               Home
             </Button>
           </Link>
@@ -75,10 +77,7 @@ export default async function ArticlesPage({
 
         <div className="mt-12 flex justify-center gap-2">
           {/* Pagination */}
-          <Link
-            href={`?search=${searchText}&page=${currentPage - 1}`}
-            passHref
-          >
+          <Link href={`?search=${searchText}&page=${currentPage - 1}`} passHref>
             <Button variant="ghost" size="sm" disabled={currentPage === 1}>
               ← Prev
             </Button>
@@ -100,10 +99,7 @@ export default async function ArticlesPage({
             </Link>
           ))}
 
-          <Link
-            href={`?search=${searchText}&page=${currentPage + 1}`}
-            passHref
-          >
+          <Link href={`?search=${searchText}&page=${currentPage + 1}`} passHref>
             <Button
               variant="ghost"
               size="sm"
