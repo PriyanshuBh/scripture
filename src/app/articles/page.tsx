@@ -4,38 +4,38 @@ import {
 } from "@/components/articles/all-articles-page";
 import ArticleSearchInput from "@/components/articles/article-search-input";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+// import { Card } from "@/components/ui/card";
+// import { Skeleton } from "@/components/ui/skeleton";
 import { fetchArticleByQuery } from "@/lib/query/fetch-articles";
 import Link from "next/link";
 
 const ITEMS_PER_PAGE = 3;
 
-function AllArticlesPageSkeleton() {
-  return (
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: 3 }).map((_, index) => (
-        <Card
-          key={index}
-          className="group relative overflow-hidden transition-all hover:shadow-lg"
-        >
-          <div className="p-6">
-            <Skeleton className="mb-4 h-48 w-full rounded-xl" />
-            <Skeleton className="h-6 w-3/4 rounded-lg" />
-            <Skeleton className="mt-2 h-4 w-1/2 rounded-lg" />
-            <div className="mt-6 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Skeleton className="h-8 w-8 rounded-full" />
-                <Skeleton className="h-4 w-20 rounded-lg " />
-              </div>
-              <Skeleton className="h-4 w-24 rounded-lg " />
-            </div>
-          </div>
-        </Card>
-      ))}
-    </div>
-  );
-}
+// function AllArticlesPageSkeleton() {
+//   return (
+//     <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+//       {Array.from({ length: 3 }).map((_, index) => (
+//         <Card
+//           key={index}
+//           className="group relative overflow-hidden transition-all hover:shadow-lg"
+//         >
+//           <div className="p-6">
+//             <Skeleton className="mb-4 h-48 w-full rounded-xl" />
+//             <Skeleton className="h-6 w-3/4 rounded-lg" />
+//             <Skeleton className="mt-2 h-4 w-1/2 rounded-lg" />
+//             <div className="mt-6 flex items-center justify-between">
+//               <div className="flex items-center gap-3">
+//                 <Skeleton className="h-8 w-8 rounded-full" />
+//                 <Skeleton className="h-4 w-20 rounded-lg " />
+//               </div>
+//               <Skeleton className="h-4 w-24 rounded-lg " />
+//             </div>
+//           </div>
+//         </Card>
+//       ))}
+//     </div>
+//   );
+// }
 
 
 export default async function ArticlesPage({
